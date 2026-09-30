@@ -46,6 +46,9 @@ bash scripts/approval-demo.sh Work
 ## Guides
 
 - [Claude Code completion notifications](https://ntfyx.me/docs/claude-code-notifications/)
+- [Codex phone approvals and hook trust](https://ntfyx.me/docs/codex-phone-approval/)
+- [Codex usage and reset-credit alerts](https://ntfyx.me/docs/codex-usage-alerts/)
+- [Compare Ntfyx, ntfy, Pushover and Bark](https://ntfyx.me/docs/notification-tools/)
 - [Shell script notifications](https://ntfyx.me/docs/notifications/)
 - [Wait for a phone approval](https://ntfyx.me/docs/phone-approval/)
 - [Web Inbox](https://ntfyx.me/docs/web/)
@@ -64,6 +67,14 @@ End-to-end encryption does not protect a compromised endpoint or conceal all met
 The examples are exercised using the compiled CLI, an isolated local encrypted relay, programmatic phone authorization and signed browser replies. Cases cover a successful job, failed job, unchanged command arguments, notification failure, Allow, Deny, timeout, transport failure and repeat claim rejection. Published screenshots show that local Web test with synthetic messages; they are not an iPhone/APNs acceptance claim or a Claude-generated output.
 
 The separately tested native Claude Code permission adapter has a documented version and mode boundary. Local stdio MCP does not mean Ntfyx is listed in the ChatGPT or Claude cloud app directory. See the agent guide for supported configurations.
+
+## Scheduling and backups
+
+The [script notification guide](https://ntfyx.me/docs/notifications/) includes a small temporary archive example, a Linux user-crontab template with explicit PATH and local logging, and a job/notification failure table. Pair and run under the same user. Try the exact command manually before scheduling. A successful archive is not a restore test, and this wrapper cannot report a job that never started or was killed before notification.
+
+## Native approvals versus completion alerts
+
+The wrapper above reports process exit on macOS/Linux. The native adapters have a narrower scope: as checked on 30 September 2026, Linux x64 Claude Code 2.1.283 / 2.1.284 non-interactive Bash, Edit and Write, and Codex 0.158.0 interactive Bash and apply_patch. These real-host checks used a programmatic receiver, not a physical iPhone. Native permission approval on macOS returns to the terminal. Codex requires the person's `/hooks` trust, and `codex exec` does not trigger its permission hook. Use either the plugin or `ntfyx setup` for an agent to avoid duplicate hooks. Retain the agent's local sandbox and policy.
 
 CLI release notes and signed downloads: https://ntfyx.me/changelog/ and https://ntfyx.me/download/
 
