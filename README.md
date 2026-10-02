@@ -1,12 +1,12 @@
 # Ntfyx examples
 
-**Encrypted notifications from CLI tools and scripts. Questions from agents. Receive and reply on your iPhone or a phone-authorized Web Inbox.**
+**Encrypted notifications from CLI tools and scripts. Questions from agents. Receive and reply on your iPhone, Android phone or a phone-authorized Web Inbox.**
 
 Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 ## Availability
 
-The signed CLI 0.1.1 is available for macOS and Linux. The hosted Web Inbox and encrypted API are online. The iPhone app is awaiting App Store review; a compatible iPhone build is needed to pair. There is no announced public App Store download or Android app. This repository contains usage examples, not the application's source code.
+The signed CLI 0.1.2 is available for macOS and Linux. The hosted Web Inbox and encrypted API are online. The iPhone app is awaiting App Store review; a compatible phone build is needed to pair. Android 1.0.0 is in Google Play production review and available to configured Internal testers. Public store downloads are not yet announced. This repository contains usage examples, not the application's source code.
 
 ## Install and pair
 
@@ -16,7 +16,7 @@ ntfyx version --json
 ntfyx connect
 ```
 
-Create a named Topic on the iPhone, open Connect Topic and scan the computer's fresh QR. Only authorize a device you trust. The QR expires after five minutes; do not publish it. Use `ntfyx topics` to find your local CLI alias. Replace `Work` below with that alias.
+Create a named Topic on the phone, open Connect Topic and scan the computer's fresh QR. Only authorize a device you trust. The QR expires after five minutes; do not publish it. Use `ntfyx topics` to find your local CLI alias. Replace `Work` below with that alias.
 
 Free includes one active Topic. Ntfyx Plus supports up to twenty active Topics. Connecting a Source or browser to an existing Topic does not create another Topic. Other limits remain shared: https://ntfyx.me/limits/
 
@@ -79,3 +79,17 @@ The wrapper above reports process exit on macOS/Linux. The native adapters have 
 CLI release notes and signed downloads: https://ntfyx.me/changelog/ and https://ntfyx.me/download/
 
 Support: https://ntfyx.me/support/ · Never include keys, pairing links, recovery codes or private messages in a public issue.
+
+## When the agent needs a choice or missing information
+
+```sh
+# Harmless demos: verified replies only; no external action or shell evaluation.
+bash scripts/input-demo.sh Work choice
+bash scripts/input-demo.sh Work text
+```
+
+The agent or script must explicitly call `ask` or the local MCP tool. Ntfyx does not automatically forward every terminal prompt. Native permission approvals use supported host hooks and have a separate platform/version matrix.
+
+- [Agent waiting for input](https://ntfyx.me/docs/agent-waiting-for-input/)
+- [Multiple projects and agents](https://ntfyx.me/docs/multiple-agent-notifications/)
+- [SSH and server jobs](https://ntfyx.me/docs/ssh-job-notifications/)
