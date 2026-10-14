@@ -1,4 +1,4 @@
-# Ntfyx examples
+# Ntfyx — AI Agent Notifications & Phone Replies: examples
 
 **Encrypted notifications from CLI tools and scripts. Questions from agents. Receive and reply on your iPhone, Android phone or a phone-authorized Web Inbox.**
 
@@ -6,7 +6,7 @@ Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 ## Availability
 
-The signed CLI 0.1.2 is available for macOS and Linux. The hosted Web Inbox and encrypted API are online. The iPhone app is awaiting App Store review; a compatible phone build is needed to pair. Android 1.0.0 is in Google Play production review and available to configured Internal testers. Public store downloads are not yet announced. This repository contains usage examples, not the application's source code.
+Signed CLI 0.1.4 is public for macOS and Linux. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
 
 ## Install and pair
 
