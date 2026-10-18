@@ -8,6 +8,8 @@ Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 Signed CLI 0.1.4 is public for macOS and Linux. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
 
+For HTTPS notifications without the CLI, phone app 1.5.2 or later can prepare a short `sk_` sending link for MyNotify with the test body `hello`. The HTTPS service reads this request before encrypted delivery. See the [HTTPS guide](https://ntfyx.me/docs/http-push/) and [current app availability](https://ntfyx.me/download/).
+
 ## Install and pair
 
 ```sh
@@ -16,9 +18,9 @@ ntfyx version --json
 ntfyx connect
 ```
 
-Create a named Topic on the phone, open Connect Topic and scan the computer's fresh QR. Only authorize a device you trust. The QR expires after five minutes; do not publish it. Use `ntfyx topics` to find your local CLI alias. Replace `Work` below with that alias.
+Choose an existing Topic, such as MyNotify, or create one within your allowance on the phone. Open Connect Topic and scan the computer's fresh QR. Only authorize a device you trust. The QR expires after five minutes; do not publish it. Use `ntfyx topics` to find your local CLI alias. Replace `Work` below with that alias.
 
-Free includes one active Topic. Ntfyx Plus supports up to twenty active Topics. Connecting a Source or browser to an existing Topic does not create another Topic. Other limits remain shared: https://ntfyx.me/limits/
+Free includes one notification subscription and one custom Topic for your own tools. Connecting a Source or browser to an existing Topic does not create another Topic. See current [plans](https://ntfyx.me/pricing/) and [service limits](https://ntfyx.me/limits/) for shared message, device, storage and retention allowances.
 
 ## Examples
 
@@ -58,7 +60,7 @@ bash scripts/approval-demo.sh Work
 
 ## What encryption protects
 
-Clients encrypt titles, bodies, choices and replies before sending them. Each receiver gets its own encrypted copy. The service processes ciphertext plus operational metadata such as routing IDs, time, size and notification tokens. A newly authorized browser cannot read earlier phone history. Revocation cannot erase already-delivered content.
+For CLI and agent messages, clients encrypt titles, bodies, choices and replies before sending them. Each receiver gets its own encrypted copy. The service processes ciphertext plus operational metadata such as routing IDs, time, size and notification tokens. A newly authorized browser cannot read earlier phone history. Revocation cannot erase already-delivered content.
 
 End-to-end encryption does not protect a compromised endpoint or conceal all metadata. Independent security review is not complete. Purchase restoration does not restore encryption keys. Read the [security model](https://ntfyx.me/security/) and [privacy notice](https://ntfyx.me/privacy/).
 
