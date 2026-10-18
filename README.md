@@ -6,7 +6,7 @@ Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 ## Availability
 
-Signed CLI 0.1.4 is public for macOS and Linux. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
+Signed CLI 0.1.4 is public for macOS and Linux. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed shell and Python usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
 
 For HTTPS notifications without the CLI, phone app 1.5.2 or later can prepare a short `sk_` sending link for MyNotify with the test body `hello`. The HTTPS service reads this request before encrypted delivery. See the [HTTPS guide](https://ntfyx.me/docs/http-push/) and [current app availability](https://ntfyx.me/download/).
 
@@ -40,6 +40,18 @@ bash scripts/notify-after.sh Work claude -p "Explain this project's README witho
 # Ask for a reply; only Allow continues this harmless demonstration.
 bash scripts/approval-demo.sh Work
 ```
+
+### A complete reply workflow
+
+[Agent reply walkthrough](https://ntfyx.me/docs/agent-reply-walkthrough/) ([中文](https://ntfyx.me/zh/docs/agent-reply-walkthrough/)) uses one Session for a status message, a Continue/Stop choice and a text question. Inspect the script first, then use your paired Topic alias:
+
+```sh
+python3 scripts/agent-reply-walkthrough.py Work
+```
+
+Requires Python 3 and the signed CLI 0.1.4 or later. The script checks the structured answer and one-time claim before continuing. It prints a fixed demonstration result; it never runs the text returned from the phone as a command. Stop, expiry and unavailable answers stop the workflow. A claimed step is not automatically retried after an unknown result. The walkthrough describes an isolated staging verification with a programmatic receiver; it does not claim a physical-phone test or native agent permission-hook coverage.
+
+For a first HTTPS notification without a computer, follow the [phone hello walkthrough](https://ntfyx.me/docs/https-push-walkthrough/) ([中文](https://ntfyx.me/zh/docs/https-push-walkthrough/)). HTTPS ingress reads the submitted content before encrypting delivery; the CLI workflow encrypts messages and replies at its endpoints.
 
 `notify-after.sh` sends only a fixed status summary, not command arguments, prompts, stdout or stderr. Job output stays in the original terminal. A failed notification prints a warning and preserves the job's exit status. A zero Claude process exit is not proof that a model's answer is correct. This wrapper reports process completion; it is not an interactive per-turn hook.
 
