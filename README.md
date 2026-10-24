@@ -1,12 +1,12 @@
 # Ntfyx — AI Agent Notifications & Phone Replies: examples
 
-**Encrypted notifications from CLI tools and scripts. Questions from agents. Receive and reply on your iPhone, Android phone or a phone-authorized Web Inbox.**
+**Encrypted notifications from CLI tools and scripts. Questions from agents. Receive and reply on your iPhone, Android phone or a phone-authorized Web or Chrome Inbox.**
 
 Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 ## Availability
 
-Signed CLI 0.1.4 is public for macOS and Linux. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed shell and Python usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
+Signed CLI 0.4.1 is public for Windows x64/ARM64, macOS Apple silicon/Intel and Linux glibc x64/ARM64. The shell examples below require a POSIX shell. The Python walkthrough requires Python 3; its recorded end-to-end run used Linux x64. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed shell and Python usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
 
 For HTTPS notifications without the CLI, phone app 1.5.2 or later can prepare a short `sk_` sending link for MyNotify with the test body `hello`. The HTTPS service reads this request before encrypted delivery. See the [HTTPS guide](https://ntfyx.me/docs/http-push/) and [current app availability](https://ntfyx.me/download/).
 
@@ -49,7 +49,7 @@ bash scripts/approval-demo.sh Work
 python3 scripts/agent-reply-walkthrough.py Work
 ```
 
-Requires Python 3 and the signed CLI 0.1.4 or later. The script checks the structured answer and one-time claim before continuing. It prints a fixed demonstration result; it never runs the text returned from the phone as a command. Stop, expiry and unavailable answers stop the workflow. A claimed step is not automatically retried after an unknown result. The walkthrough describes an isolated staging verification with a programmatic receiver; it does not claim a physical-phone test or native agent permission-hook coverage.
+Requires Python 3 and the signed CLI 0.1.4 or later. The script checks the structured answer and one-time claim before continuing. It prints a fixed demonstration result; it never runs the text returned from the phone as a command. Stop, expiry and unavailable answers stop the workflow. A claimed step is not automatically retried after an unknown result. The walkthrough was rerun on 24 October 2026 with the published CLI 0.4.1 and the real staging API. Continue, Stop, Deny and timeout passed, and each temporary Inbox was deleted. The verification used a programmatic receiver; it does not claim a physical-phone test or native agent permission-hook coverage.
 
 For a first HTTPS notification without a computer, follow the [phone hello walkthrough](https://ntfyx.me/docs/https-push-walkthrough/) ([中文](https://ntfyx.me/zh/docs/https-push-walkthrough/)). HTTPS ingress reads the submitted content before encrypting delivery; the CLI workflow encrypts messages and replies at its endpoints.
 
@@ -58,6 +58,9 @@ For a first HTTPS notification without a computer, follow the [phone hello walkt
 `approval-demo.sh` uses synchronous `ntfyx ask --allow-deny`, which verifies the answer and acquires a one-time claim before returning success. Deny, an unanswered wait, transport failure and an already-consumed request do not continue. The only permitted demo step prints a line. It never deploys, transfers money, or runs a user-supplied command. Do not use the exit status of a read-only `ntfyx result` as authorization. Real external actions need their own idempotency and crash recovery; do not automatically rerun an uncertain action.
 
 ## Guides
+
+- [AI agent notification and reply tools](https://ntfyx.me/docs/agent-notifications/) ([中文：Agent 通知工具](https://ntfyx.me/zh/docs/agent-notifications/))
+- [Compare phone alerts, replies and remote-session tools](https://ntfyx.me/docs/coding-agents-on-your-phone/)
 
 - [Claude Code completion notifications](https://ntfyx.me/docs/claude-code-notifications/)
 - [Codex phone approvals and hook trust](https://ntfyx.me/docs/codex-phone-approval/)
@@ -88,7 +91,7 @@ The [script notification guide](https://ntfyx.me/docs/notifications/) includes a
 
 ## Native approvals versus completion alerts
 
-The wrapper above reports process exit on macOS/Linux. The native adapters have a narrower scope: as checked on 30 September 2026, Linux x64 Claude Code 2.1.283 / 2.1.284 non-interactive Bash, Edit and Write, and Codex 0.158.0 interactive Bash and apply_patch. These real-host checks used a programmatic receiver, not a physical iPhone. Native permission approval on macOS returns to the terminal. Codex requires the person's `/hooks` trust, and `codex exec` does not trigger its permission hook. Use either the plugin or `ntfyx setup` for an agent to avoid duplicate hooks. Retain the agent's local sandbox and policy.
+The wrapper above reports process exit on macOS/Linux. The native adapters have a narrower scope: as checked on 30 September 2026, Linux x64 Claude Code 2.1.283 / 2.1.284 non-interactive Bash, Edit and Write, and Codex 0.158.0 interactive Bash and apply_patch. These real-host checks used a programmatic receiver, not a physical iPhone. Apple silicon Mac native approvals were separately verified with Claude Code 2.1.303 and Codex 0.163.0 (CLI 0.1.5+). Intel Mac and Windows native permission approvals remain in the terminal; Windows CLI/local MCP questions are supported. Codex requires the person's `/hooks` trust, and `codex exec` does not trigger its permission hook. Use either the plugin or `ntfyx setup` for an agent to avoid duplicate hooks. Retain the agent's local sandbox and policy.
 
 CLI release notes and signed downloads: https://ntfyx.me/changelog/ and https://ntfyx.me/download/
 
