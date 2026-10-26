@@ -6,7 +6,7 @@ Ntfyx means **notify x to me**. Official website: https://ntfyx.me
 
 ## Availability
 
-Signed CLI 0.4.1 is public for Windows x64/ARM64, macOS Apple silicon/Intel and Linux glibc x64/ARM64. The shell examples below require a POSIX shell. The Python walkthrough requires Python 3; its recorded end-to-end run used Linux x64. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed shell and Python usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
+Signed CLI 0.5.0 is public for Windows x64/ARM64, macOS Apple silicon/Intel and Linux glibc x64/ARM64. The shell examples below require a POSIX shell. The Python walkthrough requires Python 3; its recorded end-to-end run used Linux x64. Ntfyx is available on the App Store and Google Play; use the Downloads page for current phone versions, platform requirements and store links. The encrypted Web Inbox is an optional receiver authorized by your primary phone. This repository contains MIT-licensed shell and Python usage examples, not the application's core source. Ntfyx uses a hosted relay and does not provide a supported self-hosting package.
 
 For HTTPS notifications without the CLI, phone app 1.5.2 or later can prepare a short `sk_` sending link for MyNotify with the test body `hello`. The HTTPS service reads this request before encrypted delivery. See the [HTTPS guide](https://ntfyx.me/docs/http-push/) and [current app availability](https://ntfyx.me/download/).
 
@@ -23,6 +23,19 @@ Choose an existing Topic, such as MyNotify, or create one within your allowance 
 Free includes one notification subscription and one custom Topic for your own tools. Connecting a Source or browser to an existing Topic does not create another Topic. See current [plans](https://ntfyx.me/pricing/) and [service limits](https://ntfyx.me/limits/) for shared message, device, storage and retention allowances.
 
 ## Examples
+
+[`rich-message.json`](rich-message.json) demonstrates Markdown, callouts, metrics, tables, progress and native charts. It requires CLI 0.5.0+ and App 1.7.0+, Chrome 0.3.0+ or the updated Web Inbox. Store review and public availability are separate; check the [Downloads page](https://ntfyx.me/download/) for the version currently available before sending rich content.
+
+```sh
+# Local validation needs neither pairing nor MCP and makes no network request.
+ntfyx validate-message --message-file rich-message.json --json
+# Sending requires a paired Topic alias.
+ntfyx send --message-file rich-message.json --topic Work --session-id report-1 --session-name "Build report" --priority normal --dedupe-key report-1
+# The same JSON can arrive through stdin. This is an alternative to the file command.
+cat rich-message.json | ntfyx send --message-stdin --topic Work --session-id report-1 --session-name "Build report" --priority normal --dedupe-key report-1
+```
+
+Use a new dedupe key for a new report; reuse the exact input, metadata and key after an uncertain send. The JSON contains only optional `title` / `summary` and required `content`; keep Topic, Session, priority and dedupe parameters on the command line. File and JSON-stdin inputs are mutually exclusive and cannot be combined with positional text, `--stdin`, `--format`, `--title` or `--summary`. No MCP installation is required. [Rich message guide](https://ntfyx.me/docs/rich-messages/).
 
 Download or clone this repository, read the small scripts, then run from its root.
 
